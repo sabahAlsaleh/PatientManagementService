@@ -16,7 +16,7 @@ public class MedicalRecordController {
     @Autowired
     private MedicalRecordService medicalRecordService;
 
-    @GetMapping
+    @GetMapping("getAll")
     public List<MedicalRecord> getAllMedicalRecords() {
         return medicalRecordService.getAllMedicalRecords();
     }
@@ -28,19 +28,19 @@ public class MedicalRecordController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping("create")
     public MedicalRecord createMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
         return medicalRecordService.createMedicalRecord(medicalRecord);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("update/{id}")
     public ResponseEntity<MedicalRecord> updateMedicalRecord(@PathVariable Long id, @RequestBody MedicalRecord medicalRecordDetails) {
         return medicalRecordService.updateMedicalRecord(id, medicalRecordDetails)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public ResponseEntity<Void> deleteMedicalRecord(@PathVariable Long id) {
         medicalRecordService.deleteMedicalRecord(id);
         return ResponseEntity.noContent().build();
